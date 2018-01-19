@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
 
-        <Layout title="socket.io app" />
+        <Layout title="socket.io app is working. This is the layout component on App" />
     
            
 

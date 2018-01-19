@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import io from 'socket.io-client'
 
-const socketUrl = ""
+const socketUrl = "http://localhost:3231" //use the ip address of the server
 class Layout extends Component {
     constructor(props){
         super(props);
@@ -10,9 +10,15 @@ class Layout extends Component {
                     };// end of state
     }//end constructor
 
+    componentWillMount(){
+        this.initSocket();
+    }
+
     initSocket = () => {
         const socket = io(socketUrl);
-
+        socket.on('connect', () => {
+            console.log('you are connected on a socket')
+        })
         this.setState({socket});
     }
 
