@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import VERIFY_USER from '../Events'
+// import USER_CONNECTED from '../Events  -added by me
 
 class LoginForm extends Component {
     constructor(props){
@@ -8,10 +9,12 @@ class LoginForm extends Component {
                     nickname: "",
                     error: ""                        
                     } //end of state
+       
       }//end of constructor
 
-    setUser = ({ user, isUser}) => {
-        console.log(user, isUser);
+    setUser = ({user, isUser}) => {
+        console.log("setUser in Login is firing");
+        console.log({user, isUser});
         if(isUser){
             this.setError("Sorry, that nickname is already taken.")
         } else {
@@ -20,14 +23,16 @@ class LoginForm extends Component {
     }
 
     handleSubmit = (e) =>{
-        e.preventDefault;
+        e.preventDefault();
         const {nickname} = this.state;
         const {socket} = this.props;
         socket.emit(VERIFY_USER, nickname, this.setUser)
+        console.log("handle submit fired and this.state.nickname= "+ this.state.nickname)
     }
     
     handleChange = (e) => {
         this.setState({nickname: e.target.value})
+        console.log("text input change handler: " +this.state.nickname);
     }
 
     setError = (error) => {
@@ -47,11 +52,11 @@ class LoginForm extends Component {
                         ref={(input) => { this.textInput = input}}
                         type="text"
                         id="nickname"
-                        value={nickname}
+                        // value={nickname}  p-edit not sure if this is needed?
                         onChange={this.handleChange}
-                        placeholder={'Username'}
-                     />
-                     <div className="error" >{error ? error : null} </div>
+                        placeholder={'Enter a nickname'}
+                     /> 
+                     <div className="error" > {error ? error : null} </div>
                 </form>           
 
             </div>

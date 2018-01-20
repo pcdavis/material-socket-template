@@ -21,15 +21,20 @@ class Layout extends Component {
     initSocket = () => {
         const socket = io(socketUrl);
         socket.on('connect', () => {
-            console.log('you are connected on a socket')
+            console.log('you are connected on a socket' )
         })
         this.setState({socket});
+        console.log("initSocket fired")
+        console.log(this.state.socket)
     }
 
     setUser = (user) => {
+        console.log("set user function in layout is firing")
         const {socket} = this.state;
         socket.emit(USER_CONNECTED, user);
-        this.setState({ user: user});
+        this.setState({user});
+        console.log('layout state of user is '+ this.state.user)
+        console.log('layout state of socket is '+ this.state.socket)
     }
 
     logout = () => {
